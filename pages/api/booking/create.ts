@@ -61,7 +61,6 @@ async function searchVendors(
 ) {
   const ids: string[] = [];
   const vehicleTypes: string[] = [];
-  let vehicleInfo: { bookig_id: { [x: string]: any } }[] = [];
   const { data, error } = await supabaseClient.from("vendor").select("*");
   if (error) throw error;
   data?.sort(
@@ -88,7 +87,7 @@ async function searchVendors(
     vehicleTypes
   );
   const customer = await getUser(supabaseClient, phone);
-  vehicleInfo = Promise.all(
+  const vehicleInfo = Promise.all(
     vehicle.map(async (d) => {
       const info = {
         customer_id: customer.id,
